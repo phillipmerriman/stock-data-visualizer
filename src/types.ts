@@ -36,7 +36,7 @@ export interface StockParams {
     | number
     | boolean
     | ReadonlyArray<string | number | boolean>;
-  stockSymbol: string;
+  ticker: string;
   multiplier: number;
   timespan: string;
   from: string;
