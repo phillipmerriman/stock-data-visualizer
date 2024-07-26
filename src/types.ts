@@ -59,6 +59,7 @@ interface GraphDataSet {
 }
 
 export interface GraphData {
+  ticker: string;
   labels: string[];
   datasets: Array<GraphDataSet>;
 }

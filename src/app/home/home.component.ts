@@ -16,6 +16,7 @@ export class HomeComponent {
 
   stocks: Stock[] = [];
   graphData: GraphData = {
+    ticker: '',
     labels: [],
     datasets: [],
   };
@@ -44,6 +45,7 @@ export class HomeComponent {
       const openingPrices = stock.results.map((result) => result.o);
       this.stocks = [stock];
       this.graphData = {
+        ticker: stock.ticker,
         labels: labels,
         datasets: [
           {
