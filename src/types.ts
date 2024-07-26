@@ -28,7 +28,45 @@ export interface Options {
     | boolean;
 }
 
-export interface Stock {}
+interface Result {
+  c: number;
+  h: number;
+  l: number;
+  n: number;
+  o: number;
+  t: number;
+  v: number;
+  vw: number;
+}
+
+export interface Stock {
+  adjusted: boolean;
+  count: number;
+  queryCount: number;
+  request_id: string;
+  results: Result[];
+  resultsCount: number;
+  status: string;
+  ticker: string;
+}
+
+interface GraphDataSet {
+  label: string;
+  data: Array<Number>;
+  borderColor: string;
+  backgroundColor: string;
+  fill: boolean;
+}
+
+export interface GraphData {
+  labels: string[];
+  datasets: Array<GraphDataSet>;
+}
+
+export interface GraphOptions {
+  responsive: boolean;
+  scales: object;
+}
 
 export interface StockParams {
   [param: string]:
