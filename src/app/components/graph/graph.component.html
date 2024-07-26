@@ -1,0 +1,5 @@
+<!-- <p>{{ stock.ticker }}</p> -->
+<div class="column gap-1 graph-container">
+  <h3>Selected Ticker: {{ graphData.ticker }}</h3>
+  <p-chart type="line" [data]="graphData" [options]="graphOptions" />
+</div>

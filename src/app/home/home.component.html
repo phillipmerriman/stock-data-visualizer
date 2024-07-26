@@ -1,1 +1,9 @@
-<p>home works!</p>
+<div class="column">
+  <div class="row wrap gap-1 space-between">
+    <app-graph
+      *ngFor="let stock of stocks"
+      [graphData]="graphData"
+      (graphOutput)="onGraphOutput($event)"
+    ></app-graph>
+  </div>
+</div>
