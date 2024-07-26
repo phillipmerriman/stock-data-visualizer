@@ -56,9 +56,9 @@ export class HomeComponent {
           {
             label: 'Opening Prices',
             data: openingPrices,
-            borderColor: 'var()',
-            backgroundColor: '',
-            fill: false,
+            borderColor: 'rgba(70, 292, 192, 1)',
+            backgroundColor: 'rgba(70, 292, 192, 0.2)',
+            fill: true,
           },
         ],
       };
