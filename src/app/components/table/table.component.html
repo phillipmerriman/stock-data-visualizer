@@ -1,0 +1,28 @@
+<div class="column gap-1 table-container">
+  <p-table [value]="tableData" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Volume</th>
+        <th>VWAP</th>
+        <th>Open</th>
+        <th>Close</th>
+        <th>High</th>
+        <th>Low</th>
+        <th>Timestamp</th>
+        <th>Number of Trades</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-tableData>
+      <tr>
+        <td>{{ tableData.v }}</td>
+        <td>{{ tableData.vw }}</td>
+        <td>{{ tableData.o }}</td>
+        <td>{{ tableData.c }}</td>
+        <td>{{ tableData.h }}</td>
+        <td>{{ tableData.l }}</td>
+        <td>{{ tableData.t | date : "medium" }}</td>
+        <td>{{ tableData.n }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

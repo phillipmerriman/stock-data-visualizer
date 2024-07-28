@@ -69,6 +69,17 @@ export interface GraphOptions {
   scales: object;
 }
 
+export interface TableData {
+  c: number; // Closing price
+  h: number; // High price
+  l: number; // Low price
+  n: number; // Number of trades
+  o: number; // Opening price
+  t: number; // Timestamp
+  v: number; // Volume
+  vw: number; // Volume-weighted average price
+}
+
 export interface StockParams {
   [param: string]:
     | string
