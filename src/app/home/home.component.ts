@@ -45,7 +45,6 @@ export class HomeComponent {
       to: '2024-07-23',
     };
     this.stockDataService.getStockData(params).subscribe((stock: Stock) => {
-      // Should output 'true'
       const labels = stock.results.map((result) =>
         new Date(result.t).toLocaleDateString()
       );

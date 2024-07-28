@@ -2,14 +2,14 @@
   <p-table [value]="tableData" [paginator]="true" [rows]="10">
     <ng-template pTemplate="header">
       <tr>
-        <th>Volume</th>
-        <th>VWAP</th>
-        <th>Open</th>
-        <th>Close</th>
-        <th>High</th>
-        <th>Low</th>
-        <th>Timestamp</th>
-        <th>Number of Trades</th>
+        <th pSortableColumn="v">Volume<p-sortIcon field="v" /></th>
+        <th pSortableColumn="vw">VWAP<p-sortIcon field="vw" /></th>
+        <th pSortableColumn="o">Open<p-sortIcon field="o" /></th>
+        <th pSortableColumn="c">Close<p-sortIcon field="c" /></th>
+        <th pSortableColumn="h">High<p-sortIcon field="h" /></th>
+        <th pSortableColumn="l">Low<p-sortIcon field="l" /></th>
+        <th pSortableColumn="t">Timestamp<p-sortIcon field="t" /></th>
+        <th pSortableColumn="n">Number of Trades<p-sortIcon field="n" /></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-tableData>
