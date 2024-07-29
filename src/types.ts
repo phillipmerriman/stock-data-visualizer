@@ -75,7 +75,7 @@ export interface TableData {
   l: number; // Low price
   n: number; // Number of trades
   o: number; // Opening price
-  t: number; // Timestamp
+  t: string; // Timestamp
   v: number; // Volume
   vw: number; // Volume-weighted average price
 }

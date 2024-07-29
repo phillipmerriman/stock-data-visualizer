@@ -15,6 +15,7 @@ import { TableComponent } from '../components/table/table.component';
 export class HomeComponent {
   constructor(private stockDataService: StockDataService) {}
 
+  //TODO: can we remove stocks?
   stocks: Stock[] = [];
   graphData: GraphData = {
     ticker: '',
@@ -26,13 +27,13 @@ export class HomeComponent {
     scales: {},
   };
   onGraphOutput(graphData: GraphData) {
-    //TODO: what are these output functions for?
+    //TODO: what are these output functions for and when are they ran?
     console.log('Graph Output', graphData);
   }
 
   tableData: TableData[] = [];
   onTableOutput(tableData: TableData[]) {
-    //TODO: what are these output functions for?
+    //TODO: what are these output functions for and when are they ran?
     console.log('Table Output', tableData);
   }
 
@@ -51,7 +52,13 @@ export class HomeComponent {
       const closingPrices = stock.results.map((result) => result.c);
       const openingPrices = stock.results.map((result) => result.o);
       this.stocks = [stock];
-      this.tableData = stock.results;
+      this.tableData = stock.results.map((result) => {
+        const date = new Date(result.t).toLocaleDateString();
+        return {
+          ...result,
+          t: date,
+        };
+      });
       this.graphData = {
         ticker: stock.ticker,
         labels: labels,

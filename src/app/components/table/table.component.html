@@ -1,5 +1,10 @@
 <div class="column gap-1 table-container">
-  <p-table [value]="tableData" [paginator]="true" [rows]="10">
+  <p-table
+    [value]="tableData"
+    [paginator]="true"
+    [rows]="10"
+    styleClass="p-datatable-striped"
+  >
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="v">Volume<p-sortIcon field="v" /></th>
@@ -11,6 +16,72 @@
         <th pSortableColumn="t">Timestamp<p-sortIcon field="t" /></th>
         <th pSortableColumn="n">Number of Trades<p-sortIcon field="n" /></th>
       </tr>
+      <tr>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="v"
+            placeholder="Search by Volume"
+            ariaLabel="Filter Volume"
+          />
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="vw"
+            placeholder="Search by VWAP"
+            ariaLabel="Filter VWAP"
+          />
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="o"
+            placeholder="Search by Open Price"
+            ariaLabel="Filter Open Price"
+          />
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="c"
+            placeholder="Search by Closing Price"
+            ariaLabel="Filter Closing Price"
+          />
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="h"
+            placeholder="Search by Highest Price"
+            ariaLabel="Filter Highest Price"
+          />
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="l"
+            placeholder="Search by Lowest Price"
+            ariaLabel="Filter Lowest Price"
+          />
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="t"
+            placeholder="Search by Timestamp"
+            ariaLabel="Filter Timestamp"
+          />
+        </th>
+        <th>
+          <p-columnFilter
+            type="text"
+            field="n"
+            placeholder="Search by Number of Trades"
+            ariaLabel="Filter Number of Trades"
+          />
+        </th>
+      </tr>
     </ng-template>
     <ng-template pTemplate="body" let-tableData>
       <tr>
@@ -20,8 +91,13 @@
         <td>{{ tableData.c }}</td>
         <td>{{ tableData.h }}</td>
         <td>{{ tableData.l }}</td>
-        <td>{{ tableData.t | date : "medium" }}</td>
+        <td>{{ tableData.t }}</td>
         <td>{{ tableData.n }}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5">No stock data found.</td>
       </tr>
     </ng-template>
   </p-table>
