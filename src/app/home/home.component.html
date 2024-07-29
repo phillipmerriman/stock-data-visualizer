@@ -1,9 +1,6 @@
 <div class="column">
-  <div class="row wrap gap-1 space-between">
-    <app-graph
-      *ngFor="let stock of stocks"
-      [graphData]="graphData"
-      (graphOutput)="onGraphOutput($event)"
-    ></app-graph>
+  <div class="column wrap gap-1 space-between">
+    <app-graph [graphData]="graphData" (graphOutput)="onGraphOutput($event)" />
+    <app-table [tableData]="tableData" (tableOutput)="onTableOutput($event)" />
   </div>
 </div>

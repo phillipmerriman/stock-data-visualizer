@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
 import { GraphComponent } from '../components/graph/graph.component';
-import { GraphData, GraphOptions, Stock } from '../../types';
+import { GraphData, GraphOptions, Stock, TableData } from '../../types';
 import { CommonModule } from '@angular/common';
+import { TableComponent } from '../components/table/table.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, GraphComponent],
+  imports: [CommonModule, GraphComponent, TableComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
   constructor(private stockDataService: StockDataService) {}
 
+  //TODO: can we remove stocks?
   stocks: Stock[] = [];
   graphData: GraphData = {
     ticker: '',
@@ -25,7 +27,14 @@ export class HomeComponent {
     scales: {},
   };
   onGraphOutput(graphData: GraphData) {
+    //TODO: what are these output functions for and when are they ran?
     console.log('Graph Output', graphData);
+  }
+
+  tableData: TableData[] = [];
+  onTableOutput(tableData: TableData[]) {
+    //TODO: what are these output functions for and when are they ran?
+    console.log('Table Output', tableData);
   }
 
   ngOnInit() {
@@ -37,13 +46,19 @@ export class HomeComponent {
       to: '2024-07-23',
     };
     this.stockDataService.getStockData(params).subscribe((stock: Stock) => {
-      console.log({ results: stock });
       const labels = stock.results.map((result) =>
         new Date(result.t).toLocaleDateString()
       );
       const closingPrices = stock.results.map((result) => result.c);
       const openingPrices = stock.results.map((result) => result.o);
       this.stocks = [stock];
+      this.tableData = stock.results.map((result) => {
+        const date = new Date(result.t).toLocaleDateString();
+        return {
+          ...result,
+          t: date,
+        };
+      });
       this.graphData = {
         ticker: stock.ticker,
         labels: labels,
