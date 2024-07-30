@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
 import { GraphComponent } from '../components/graph/graph.component';
-import { GraphData, GraphOptions, Stock, TableData } from '../../types';
+import {
+  GetTickersResponse,
+  GraphData,
+  GraphOptions,
+  Stock,
+  TableData,
+  TickerListItem,
+} from '../../types';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from '../components/table/table.component';
 
@@ -37,7 +44,21 @@ export class HomeComponent {
     console.log('Table Output', tableData);
   }
 
+  tickerList: TickerListItem[] = [];
+
   ngOnInit() {
+    this.stockDataService
+      .getTickers()
+      .subscribe((tickers: GetTickersResponse) => {
+        console.log({ tickers });
+        this.tickerList = tickers.results.map((ticker) => {
+          return {
+            name: `${ticker.name} | ${ticker.ticker}`,
+            code: ticker.ticker,
+          };
+        });
+      });
+
     const params = {
       ticker: 'AAPL',
       multiplier: 1,
