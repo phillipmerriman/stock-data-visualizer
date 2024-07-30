@@ -3,6 +3,7 @@
     <app-ticker-picker
       [tickerList]="tickerList"
       [selectedTicker]="selectedTicker"
+      (tickerPickerOutput)="onTickerChange($event)"
     />
     <app-graph [graphData]="graphData" (graphOutput)="onGraphOutput($event)" />
     <app-table [tableData]="tableData" (tableOutput)="onTableOutput($event)" />

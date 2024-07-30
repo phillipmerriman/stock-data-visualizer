@@ -40,13 +40,13 @@ export class HomeComponent {
     scales: {},
   };
   onGraphOutput(graphData: GraphData) {
-    //TODO: what are these output functions for and when are they ran?
+    //TODO: what are these output functions for and when are they ran? I dont think I need these (reference onTickerChange here and in home.component.html)
     console.log('Graph Output', graphData);
   }
 
   tableData: TableData[] = [];
   onTableOutput(tableData: TableData[]) {
-    //TODO: what are these output functions for and when are they ran?
+    //TODO: what are these output functions for and when are they ran? I dont think I need these (reference onTickerChange here and in home.component.html)
     console.log('Table Output', tableData);
   }
 
@@ -55,20 +55,12 @@ export class HomeComponent {
     name: '',
     code: 'AAPL',
   };
+  onTickerChange(event: any) {
+    this.selectedTicker = event;
+    this.handleGetStockData();
+  }
 
-  ngOnInit() {
-    this.stockDataService
-      .getTickers()
-      .subscribe((tickers: GetTickersResponse) => {
-        console.log({ tickers });
-        this.tickerList = tickers.results.map((ticker) => {
-          return {
-            name: `${ticker.name} | ${ticker.ticker}`,
-            code: ticker.ticker,
-          };
-        });
-      });
-
+  handleGetStockData() {
     const params = {
       ticker: this.selectedTicker.code,
       multiplier: 1,
@@ -76,6 +68,7 @@ export class HomeComponent {
       from: '2024-06-24',
       to: '2024-07-23',
     };
+    //TODO: add response error handling here (test with AAALY ticker, it has 0 results)
     this.stockDataService.getStockData(params).subscribe((stock: Stock) => {
       const labels = stock.results.map((result) =>
         new Date(result.t).toLocaleDateString()
@@ -126,5 +119,20 @@ export class HomeComponent {
         },
       };
     });
+  }
+
+  ngOnInit() {
+    this.stockDataService.getTickers().subscribe({
+      next: (tickers: GetTickersResponse) => {
+        this.tickerList = tickers.results.map((ticker) => {
+          return {
+            name: `${ticker.name} | ${ticker.ticker}`,
+            code: ticker.ticker,
+          };
+        });
+      },
+      error: (error) => console.log(error),
+    });
+    this.handleGetStockData();
   }
 }

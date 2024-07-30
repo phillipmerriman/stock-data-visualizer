@@ -1,7 +1,7 @@
-<p>ticker-picker works!</p>
-<!-- TODO: do we need to pass this in? [(ngModel)]="selectedTicker"  -->
 <p-dropdown
   [options]="tickerList"
+  [(ngModel)]="selectedTicker"
+  (onChange)="onTickerSelect($event)"
   optionLabel="name"
   placeholder="Select a City"
 />
