@@ -18,7 +18,8 @@ export class StockDataService {
     });
   };
 
-  //TODO: what is Observable<Type>
+  //TODO: what is Observable
+  // Observables are lazy push collections of multiple values: https://rxjs.dev/guide/observable
   getStockData = (params: StockParams): Observable<Stock> => {
     const url = `https://api.polygon.io/v2/aggs/ticker/${params.ticker}/range/${params.multiplier}/${params.timespan}/${params.from}/${params.to}?apiKey=0jAqt4lLvD8yXEKlGNhPLtA8UVdp6Mrg`;
 

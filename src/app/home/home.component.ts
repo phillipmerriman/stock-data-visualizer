@@ -52,7 +52,7 @@ export class HomeComponent {
 
   tickerList: TickerListItem[] = [];
   selectedTicker: TickerListItem = {
-    name: '',
+    name: 'Apple Inc.',
     code: 'AAPL',
   };
   onTickerChange(event: any) {
