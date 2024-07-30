@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
 import { GraphComponent } from '../components/graph/graph.component';
+import { TableComponent } from '../components/table/table.component';
+import { TickerPickerComponent } from '../components/ticker-picker/ticker-picker.component';
 import {
   GetTickersResponse,
   GraphData,
@@ -10,12 +12,16 @@ import {
   TickerListItem,
 } from '../../types';
 import { CommonModule } from '@angular/common';
-import { TableComponent } from '../components/table/table.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, GraphComponent, TableComponent],
+  imports: [
+    CommonModule,
+    GraphComponent,
+    TableComponent,
+    TickerPickerComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -45,6 +51,10 @@ export class HomeComponent {
   }
 
   tickerList: TickerListItem[] = [];
+  selectedTicker: TickerListItem = {
+    name: '',
+    code: 'AAPL',
+  };
 
   ngOnInit() {
     this.stockDataService
@@ -60,7 +70,7 @@ export class HomeComponent {
       });
 
     const params = {
-      ticker: 'AAPL',
+      ticker: this.selectedTicker.code,
       multiplier: 1,
       timespan: 'day',
       from: '2024-06-24',
