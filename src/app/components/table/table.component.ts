@@ -19,7 +19,7 @@ export class TableComponent {
   >();
 
   ngOnInit() {
-    console.log('tableComponent', this.tableData);
+    //TODO: dont need this
     this.tableOutput.emit(this.tableData);
   }
 }

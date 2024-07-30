@@ -17,7 +17,6 @@ export class TickerPickerComponent {
   @Output() tickerPickerOutput: EventEmitter<TickerListItem> =
     new EventEmitter<TickerListItem>();
 
-  ngOnInit() {}
   onTickerSelect(event: any) {
     console.log('ticker-picker select', event);
     this.selectedTicker = event.value;

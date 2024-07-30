@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
+import { DatePickerComponent } from '../components/date-picker/date-picker.component';
 import { GraphComponent } from '../components/graph/graph.component';
 import { TableComponent } from '../components/table/table.component';
 import { TickerPickerComponent } from '../components/ticker-picker/ticker-picker.component';
@@ -21,6 +22,7 @@ import { CommonModule } from '@angular/common';
     GraphComponent,
     TableComponent,
     TickerPickerComponent,
+    DatePickerComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -41,13 +43,11 @@ export class HomeComponent {
   };
   onGraphOutput(graphData: GraphData) {
     //TODO: what are these output functions for and when are they ran? I dont think I need these (reference onTickerChange here and in home.component.html)
-    console.log('Graph Output', graphData);
   }
 
   tableData: TableData[] = [];
   onTableOutput(tableData: TableData[]) {
     //TODO: what are these output functions for and when are they ran? I dont think I need these (reference onTickerChange here and in home.component.html)
-    console.log('Table Output', tableData);
   }
 
   tickerList: TickerListItem[] = [];
@@ -58,6 +58,14 @@ export class HomeComponent {
   onTickerChange(event: any) {
     this.selectedTicker = event;
     this.handleGetStockData();
+  }
+
+  dateRange: Date[] = [];
+  onDateChange(event: any) {
+    if (event[0] && event[1]) {
+      console.log({ dateChange: event });
+    }
+    // this.dateRange = event;
   }
 
   handleGetStockData() {

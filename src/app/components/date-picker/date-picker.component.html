@@ -1,0 +1,8 @@
+<h3>Pick a date range:</h3>
+<p-calendar
+  [(ngModel)]="dateRange"
+  selectionMode="range"
+  [readonlyInput]="true"
+  (onSelect)="onDateSelect($event)"
+  placeholder="Select a date range..."
+/>
