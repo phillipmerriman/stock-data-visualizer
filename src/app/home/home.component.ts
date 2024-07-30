@@ -68,7 +68,7 @@ export class HomeComponent {
       from: '2024-06-24',
       to: '2024-07-23',
     };
-    //TODO: add response error handling here (test with AAALY ticker, it has 0 results)
+    //TODO: add response error handling here, see the getTickers call below (test with AAALY ticker, it has 0 results)
     this.stockDataService.getStockData(params).subscribe((stock: Stock) => {
       const labels = stock.results.map((result) =>
         new Date(result.t).toLocaleDateString()
