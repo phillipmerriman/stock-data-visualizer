@@ -1,14 +1,27 @@
 import { Component } from '@angular/core';
 import { StockDataService } from '../services/stock-data.service';
 import { GraphComponent } from '../components/graph/graph.component';
-import { GraphData, GraphOptions, Stock, TableData } from '../../types';
-import { CommonModule } from '@angular/common';
 import { TableComponent } from '../components/table/table.component';
+import { TickerPickerComponent } from '../components/ticker-picker/ticker-picker.component';
+import {
+  GetTickersResponse,
+  GraphData,
+  GraphOptions,
+  Stock,
+  TableData,
+  TickerListItem,
+} from '../../types';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, GraphComponent, TableComponent],
+  imports: [
+    CommonModule,
+    GraphComponent,
+    TableComponent,
+    TickerPickerComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -27,24 +40,35 @@ export class HomeComponent {
     scales: {},
   };
   onGraphOutput(graphData: GraphData) {
-    //TODO: what are these output functions for and when are they ran?
+    //TODO: what are these output functions for and when are they ran? I dont think I need these (reference onTickerChange here and in home.component.html)
     console.log('Graph Output', graphData);
   }
 
   tableData: TableData[] = [];
   onTableOutput(tableData: TableData[]) {
-    //TODO: what are these output functions for and when are they ran?
+    //TODO: what are these output functions for and when are they ran? I dont think I need these (reference onTickerChange here and in home.component.html)
     console.log('Table Output', tableData);
   }
 
-  ngOnInit() {
+  tickerList: TickerListItem[] = [];
+  selectedTicker: TickerListItem = {
+    name: 'Apple Inc.',
+    code: 'AAPL',
+  };
+  onTickerChange(event: any) {
+    this.selectedTicker = event;
+    this.handleGetStockData();
+  }
+
+  handleGetStockData() {
     const params = {
-      ticker: 'AAPL',
+      ticker: this.selectedTicker.code,
       multiplier: 1,
       timespan: 'day',
       from: '2024-06-24',
       to: '2024-07-23',
     };
+    //TODO: add response error handling here, see the getTickers call below (test with AAALY ticker, it has 0 results)
     this.stockDataService.getStockData(params).subscribe((stock: Stock) => {
       const labels = stock.results.map((result) =>
         new Date(result.t).toLocaleDateString()
@@ -95,5 +119,20 @@ export class HomeComponent {
         },
       };
     });
+  }
+
+  ngOnInit() {
+    this.stockDataService.getTickers().subscribe({
+      next: (tickers: GetTickersResponse) => {
+        this.tickerList = tickers.results.map((ticker) => {
+          return {
+            name: `${ticker.name} | ${ticker.ticker}`,
+            code: ticker.ticker,
+          };
+        });
+      },
+      error: (error) => console.log(error),
+    });
+    this.handleGetStockData();
   }
 }

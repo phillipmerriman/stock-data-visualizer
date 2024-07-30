@@ -80,6 +80,33 @@ export interface TableData {
   vw: number; // Volume-weighted average price
 }
 
+interface TickerResult {
+  active: boolean;
+  cik: string;
+  composite_figi: string;
+  last_updated_utc: string;
+  locale: string;
+  market: string;
+  name: string;
+  primary_exchange: string;
+  share_class_figi: string;
+  ticker: string;
+  type: string;
+}
+
+export interface GetTickersResponse {
+  count: number;
+  next_url: string;
+  request_id: string;
+  results: Array<TickerResult>;
+  status: string;
+}
+
+export interface TickerListItem {
+  name: string;
+  code: string;
+}
+
 export interface StockParams {
   [param: string]:
     | string
