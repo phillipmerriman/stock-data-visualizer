@@ -30,8 +30,6 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent {
   constructor(private stockDataService: StockDataService) {}
 
-  //TODO: can we remove stocks?
-  stocks: Stock[] = [];
   graphData: GraphData = {
     ticker: '',
     labels: [],
@@ -41,14 +39,8 @@ export class HomeComponent {
     responsive: true,
     scales: {},
   };
-  onGraphOutput(graphData: GraphData) {
-    //TODO: what are these output functions for and when are they ran? I dont think I need these (reference onTickerChange here and in home.component.html)
-  }
 
   tableData: TableData[] = [];
-  onTableOutput(tableData: TableData[]) {
-    //TODO: what are these output functions for and when are they ran? I dont think I need these (reference onTickerChange here and in home.component.html)
-  }
 
   //TODO: can we move tickerList to ticker-picker.component.ts?
   tickerList: TickerListItem[] = [];
@@ -94,7 +86,6 @@ export class HomeComponent {
         );
         const closingPrices = stock.results.map((result) => result.c);
         const openingPrices = stock.results.map((result) => result.o);
-        this.stocks = [stock];
         this.tableData = stock.results.map((result) => {
           const date = new Date(result.t).toLocaleDateString();
           return {

@@ -1,4 +1,5 @@
 import { HttpContext, HttpHeaders, HttpParams } from '@angular/common/http';
+//TODO: any unused interfaces here?
 
 export interface Options {
   headers?:
@@ -27,7 +28,6 @@ export interface Options {
       }
     | boolean;
 }
-
 interface Result {
   c: number;
   h: number;

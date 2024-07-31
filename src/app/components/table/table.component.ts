@@ -14,12 +14,4 @@ import { TagModule } from 'primeng/tag';
 })
 export class TableComponent {
   @Input() tableData: TableData[] = [];
-  @Output() tableOutput: EventEmitter<TableData[]> = new EventEmitter<
-    TableData[]
-  >();
-
-  ngOnInit() {
-    //TODO: dont need this
-    this.tableOutput.emit(this.tableData);
-  }
 }
