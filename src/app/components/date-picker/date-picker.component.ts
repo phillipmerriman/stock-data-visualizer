@@ -12,7 +12,7 @@ import { CalendarModule } from 'primeng/calendar';
   providers: [DatePipe],
 })
 export class DatePickerComponent {
-  @Input() dateRange!: Date[];
+  dateRange: Date[] = [];
   formattedDateRange: string[] = ['yyyy-MM-dd', 'yyyy-MM-dd'];
   @Output() datePickerOutput: EventEmitter<string[]> = new EventEmitter<
     string[]

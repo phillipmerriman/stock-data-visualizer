@@ -42,12 +42,12 @@ export class HomeComponent {
 
   tableData: TableData[] = [];
 
-  //TODO: can we move tickerList to ticker-picker.component.ts?
   tickerList: TickerListItem[] = [];
   selectedTicker: TickerListItem = {
     name: 'Apple Inc.',
     code: 'AAPL',
   };
+  //TODO: event: any? - what type should events be?
   onTickerChange(event: any) {
     this.stockApiParams = {
       ...this.stockApiParams,
@@ -63,8 +63,7 @@ export class HomeComponent {
     from: '2024-06-24',
     to: '2024-07-23',
   };
-  //TODO: I think we can move dateRange to date-picker.component.ts
-  dateRange: Date[] = [];
+
   onDateChange(event: any) {
     if (event[0] && event[1]) {
       this.stockApiParams = {

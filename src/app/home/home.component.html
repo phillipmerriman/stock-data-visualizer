@@ -6,10 +6,7 @@
         [selectedTicker]="selectedTicker"
         (tickerPickerOutput)="onTickerChange($event)"
       />
-      <app-date-picker
-        [dateRange]="dateRange"
-        (datePickerOutput)="onDateChange($event)"
-      />
+      <app-date-picker (datePickerOutput)="onDateChange($event)" />
     </div>
     <app-graph [graphData]="graphData" />
     <app-table [tableData]="tableData" />
