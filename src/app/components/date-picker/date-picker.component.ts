@@ -17,8 +17,18 @@ export class DatePickerComponent {
   @Output() datePickerOutput: EventEmitter<string[]> = new EventEmitter<
     string[]
   >();
+  maxDate: Date;
 
-  constructor(private datePipe: DatePipe) {}
+  constructor(private datePipe: DatePipe) {
+    this.maxDate = this.calculateTomorrow();
+  }
+
+  calculateTomorrow(): Date {
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    return tomorrow;
+  }
 
   onDateSelect(event: any) {
     if (this.dateRange && this.dateRange.length === 2) {
