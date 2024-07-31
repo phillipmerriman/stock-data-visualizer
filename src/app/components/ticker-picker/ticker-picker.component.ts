@@ -18,7 +18,6 @@ export class TickerPickerComponent {
     new EventEmitter<TickerListItem>();
 
   onTickerSelect(event: any) {
-    console.log('ticker-picker select', event);
     this.selectedTicker = event.value;
     this.tickerPickerOutput.emit(this.selectedTicker);
   }
