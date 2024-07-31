@@ -9,6 +9,7 @@ import {
   GraphData,
   GraphOptions,
   Stock,
+  StockParams,
   TableData,
   TickerListItem,
 } from '../../types';
@@ -30,33 +31,29 @@ import { CommonModule } from '@angular/common';
 export class HomeComponent {
   constructor(private stockDataService: StockDataService) {}
 
-  //TODO: can we remove stocks?
-  stocks: Stock[] = [];
   graphData: GraphData = {
     ticker: '',
     labels: [],
+    highestPrice: 0,
+    lowestPrice: 0,
     datasets: [],
   };
+
   graphOptions: GraphOptions = {
     responsive: true,
     scales: {},
   };
-  onGraphOutput(graphData: GraphData) {
-    //TODO: what are these output functions for and when are they ran? I dont think I need these (reference onTickerChange here and in home.component.html)
-  }
 
   tableData: TableData[] = [];
-  onTableOutput(tableData: TableData[]) {
-    //TODO: what are these output functions for and when are they ran? I dont think I need these (reference onTickerChange here and in home.component.html)
-  }
 
-  //TODO: can we move tickerList to ticker-picker.component.ts?
   tickerList: TickerListItem[] = [];
+
   selectedTicker: TickerListItem = {
     name: 'Apple Inc.',
     code: 'AAPL',
   };
-  onTickerChange(event: any) {
+
+  onTickerChange(event: TickerListItem) {
     this.stockApiParams = {
       ...this.stockApiParams,
       ticker: event.code,
@@ -64,16 +61,15 @@ export class HomeComponent {
     this.handleGetStockData();
   }
 
-  stockApiParams = {
+  stockApiParams: StockParams = {
     ticker: this.selectedTicker.code,
     multiplier: 1,
     timespan: 'day',
     from: '2024-06-24',
     to: '2024-07-23',
   };
-  //TODO: I think we can move dateRange to date-picker.component.ts
-  dateRange: Date[] = [];
-  onDateChange(event: any) {
+
+  onDateChange(event: string[]) {
     if (event[0] && event[1]) {
       this.stockApiParams = {
         ...this.stockApiParams,
@@ -85,16 +81,25 @@ export class HomeComponent {
   }
 
   handleGetStockData() {
-    //TODO: add response error handling here, see the getTickers call below (test with AAALY ticker, "stock.results is undefined" )
-    this.stockDataService
-      .getStockData(this.stockApiParams)
-      .subscribe((stock: Stock) => {
-        const labels = stock.results.map((result) =>
+    this.stockDataService.getStockData(this.stockApiParams).subscribe({
+      next: (stock: Stock) => {
+        if (!stock.results) {
+          this.graphData = {
+            ticker: `${stock.ticker} has no data for the selected date range.`,
+            labels: [],
+            highestPrice: 0,
+            lowestPrice: 0,
+            datasets: [],
+          };
+          this.tableData = [];
+          return;
+        }
+        const labels: string[] = stock.results.map((result) =>
           new Date(result.t).toLocaleDateString()
         );
-        const closingPrices = stock.results.map((result) => result.c);
-        const openingPrices = stock.results.map((result) => result.o);
-        this.stocks = [stock];
+        const closingPrices: number[] = stock.results.map((result) => result.c);
+        const openingPrices: number[] = stock.results.map((result) => result.o);
+        const allPrices: number[] = [...closingPrices, ...openingPrices];
         this.tableData = stock.results.map((result) => {
           const date = new Date(result.t).toLocaleDateString();
           return {
@@ -105,7 +110,8 @@ export class HomeComponent {
         this.graphData = {
           ticker: stock.ticker,
           labels: labels,
-          //TODO: if more than x number of days from datepicker, render every other day
+          highestPrice: Math.max(...allPrices),
+          lowestPrice: Math.min(...allPrices),
           datasets: [
             {
               label: 'Closing Prices',
@@ -138,7 +144,10 @@ export class HomeComponent {
             },
           },
         };
-      });
+      },
+      error: (error) =>
+        console.error({ status: error.status, message: error.error.error }),
+    });
   }
 
   ngOnInit() {

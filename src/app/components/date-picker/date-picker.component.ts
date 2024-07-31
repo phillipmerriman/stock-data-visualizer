@@ -12,21 +12,31 @@ import { CalendarModule } from 'primeng/calendar';
   providers: [DatePipe],
 })
 export class DatePickerComponent {
-  @Input() dateRange!: Date[];
+  dateRange: Date[] = [];
   formattedDateRange: string[] = ['yyyy-MM-dd', 'yyyy-MM-dd'];
   @Output() datePickerOutput: EventEmitter<string[]> = new EventEmitter<
     string[]
   >();
+  maxDate: Date;
 
-  constructor(private datePipe: DatePipe) {}
+  constructor(private datePipe: DatePipe) {
+    this.maxDate = this.calculateTomorrow();
+  }
 
-  onDateSelect(event: any) {
+  calculateTomorrow(): Date {
+    const today: Date = new Date();
+    const tomorrow: Date = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    return tomorrow;
+  }
+
+  onDateSelect() {
     if (this.dateRange && this.dateRange.length === 2) {
-      const formattedStartDate = this.datePipe.transform(
+      const formattedStartDate: string = this.datePipe.transform(
         this.dateRange[0],
         'yyyy-MM-dd'
       )!;
-      const formattedEndDate = this.datePipe.transform(
+      const formattedEndDate: string = this.datePipe.transform(
         this.dateRange[1],
         'yyyy-MM-dd'
       )!;
