@@ -1,0 +1,9 @@
+<h3>Pick a date range:</h3>
+<!-- TODO: dont allow User to select dates later than today -->
+<p-calendar
+  [(ngModel)]="dateRange"
+  selectionMode="range"
+  [readonlyInput]="true"
+  (onSelect)="onDateSelect($event)"
+  placeholder="Select a date range..."
+/>

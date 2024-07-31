@@ -16,7 +16,7 @@ export class GraphComponent {
     new EventEmitter<GraphData>();
 
   ngOnInit() {
-    console.log('graphComponent', this.graphData);
+    //TODO: dont need this
     this.graphOutput.emit(this.graphData);
   }
 }

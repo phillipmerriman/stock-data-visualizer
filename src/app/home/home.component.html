@@ -1,10 +1,16 @@
 <div class="column">
   <div class="column wrap gap-1 space-between">
-    <app-ticker-picker
-      [tickerList]="tickerList"
-      [selectedTicker]="selectedTicker"
-      (tickerPickerOutput)="onTickerChange($event)"
-    />
+    <div class="row wrap gap-1">
+      <app-ticker-picker
+        [tickerList]="tickerList"
+        [selectedTicker]="selectedTicker"
+        (tickerPickerOutput)="onTickerChange($event)"
+      />
+      <app-date-picker
+        [dateRange]="dateRange"
+        (datePickerOutput)="onDateChange($event)"
+      />
+    </div>
     <app-graph [graphData]="graphData" (graphOutput)="onGraphOutput($event)" />
     <app-table [tableData]="tableData" (tableOutput)="onTableOutput($event)" />
   </div>
