@@ -9,6 +9,7 @@ import {
   GraphData,
   GraphOptions,
   Stock,
+  StockParams,
   TableData,
   TickerListItem,
 } from '../../types';
@@ -33,8 +34,11 @@ export class HomeComponent {
   graphData: GraphData = {
     ticker: '',
     labels: [],
+    highestPrice: 0,
+    lowestPrice: 0,
     datasets: [],
   };
+
   graphOptions: GraphOptions = {
     responsive: true,
     scales: {},
@@ -43,12 +47,13 @@ export class HomeComponent {
   tableData: TableData[] = [];
 
   tickerList: TickerListItem[] = [];
+
   selectedTicker: TickerListItem = {
     name: 'Apple Inc.',
     code: 'AAPL',
   };
-  //TODO: event: any? - what type should events be?
-  onTickerChange(event: any) {
+
+  onTickerChange(event: TickerListItem) {
     this.stockApiParams = {
       ...this.stockApiParams,
       ticker: event.code,
@@ -56,7 +61,7 @@ export class HomeComponent {
     this.handleGetStockData();
   }
 
-  stockApiParams = {
+  stockApiParams: StockParams = {
     ticker: this.selectedTicker.code,
     multiplier: 1,
     timespan: 'day',
@@ -64,7 +69,7 @@ export class HomeComponent {
     to: '2024-07-23',
   };
 
-  onDateChange(event: any) {
+  onDateChange(event: string[]) {
     if (event[0] && event[1]) {
       this.stockApiParams = {
         ...this.stockApiParams,
@@ -76,15 +81,25 @@ export class HomeComponent {
   }
 
   handleGetStockData() {
-    //TODO: add response error handling here, see the getTickers call below (test with AAALY ticker, "stock.results is undefined" )
-    this.stockDataService
-      .getStockData(this.stockApiParams)
-      .subscribe((stock: Stock) => {
-        const labels = stock.results.map((result) =>
+    this.stockDataService.getStockData(this.stockApiParams).subscribe({
+      next: (stock: Stock) => {
+        if (!stock.results) {
+          this.graphData = {
+            ticker: `${stock.ticker} has no data for the selected date range.`,
+            labels: [],
+            highestPrice: 0,
+            lowestPrice: 0,
+            datasets: [],
+          };
+          this.tableData = [];
+          return;
+        }
+        const labels: string[] = stock.results.map((result) =>
           new Date(result.t).toLocaleDateString()
         );
-        const closingPrices = stock.results.map((result) => result.c);
-        const openingPrices = stock.results.map((result) => result.o);
+        const closingPrices: number[] = stock.results.map((result) => result.c);
+        const openingPrices: number[] = stock.results.map((result) => result.o);
+        const allPrices: number[] = [...closingPrices, ...openingPrices];
         this.tableData = stock.results.map((result) => {
           const date = new Date(result.t).toLocaleDateString();
           return {
@@ -95,7 +110,8 @@ export class HomeComponent {
         this.graphData = {
           ticker: stock.ticker,
           labels: labels,
-          //TODO: if more than x number of days from datepicker, render every other day
+          highestPrice: Math.max(...allPrices),
+          lowestPrice: Math.min(...allPrices),
           datasets: [
             {
               label: 'Closing Prices',
@@ -128,7 +144,10 @@ export class HomeComponent {
             },
           },
         };
-      });
+      },
+      error: (error) =>
+        console.error({ status: error.status, message: error.error.error }),
+    });
   }
 
   ngOnInit() {

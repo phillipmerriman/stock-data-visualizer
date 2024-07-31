@@ -1,5 +1,4 @@
 import { HttpContext, HttpHeaders, HttpParams } from '@angular/common/http';
-//TODO: any unused interfaces here?
 
 export interface Options {
   headers?:
@@ -28,23 +27,13 @@ export interface Options {
       }
     | boolean;
 }
-interface Result {
-  c: number;
-  h: number;
-  l: number;
-  n: number;
-  o: number;
-  t: number;
-  v: number;
-  vw: number;
-}
 
 export interface Stock {
   adjusted: boolean;
   count: number;
   queryCount: number;
   request_id: string;
-  results: Result[];
+  results: TableData[];
   resultsCount: number;
   status: string;
   ticker: string;
@@ -61,6 +50,8 @@ interface GraphDataSet {
 export interface GraphData {
   ticker: string;
   labels: string[];
+  highestPrice: number;
+  lowestPrice: number;
   datasets: Array<GraphDataSet>;
 }
 
@@ -105,6 +96,10 @@ export interface GetTickersResponse {
 export interface TickerListItem {
   name: string;
   code: string;
+}
+
+export interface DropdownEvent {
+  value: TickerListItem;
 }
 
 export interface StockParams {

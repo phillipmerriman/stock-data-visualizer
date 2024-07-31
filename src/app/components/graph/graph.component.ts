@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { GraphData, GraphOptions } from '../../../types';
 import { ChartModule } from 'primeng/chart';
 

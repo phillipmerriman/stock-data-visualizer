@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DropdownModule } from 'primeng/dropdown';
-import { TickerListItem } from '../../../types';
+import { DropdownEvent, TickerListItem } from '../../../types';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -17,7 +17,7 @@ export class TickerPickerComponent {
   @Output() tickerPickerOutput: EventEmitter<TickerListItem> =
     new EventEmitter<TickerListItem>();
 
-  onTickerSelect(event: any) {
+  onTickerSelect(event: DropdownEvent) {
     this.selectedTicker = event.value;
     this.tickerPickerOutput.emit(this.selectedTicker);
   }

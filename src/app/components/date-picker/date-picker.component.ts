@@ -24,19 +24,19 @@ export class DatePickerComponent {
   }
 
   calculateTomorrow(): Date {
-    const today = new Date();
-    const tomorrow = new Date();
+    const today: Date = new Date();
+    const tomorrow: Date = new Date();
     tomorrow.setDate(today.getDate() + 1);
     return tomorrow;
   }
 
-  onDateSelect(event: any) {
+  onDateSelect() {
     if (this.dateRange && this.dateRange.length === 2) {
-      const formattedStartDate = this.datePipe.transform(
+      const formattedStartDate: string = this.datePipe.transform(
         this.dateRange[0],
         'yyyy-MM-dd'
       )!;
-      const formattedEndDate = this.datePipe.transform(
+      const formattedEndDate: string = this.datePipe.transform(
         this.dateRange[1],
         'yyyy-MM-dd'
       )!;
