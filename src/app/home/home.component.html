@@ -1,4 +1,14 @@
-<div class="column">
+<div class="row wrap gap-1">
+  <app-ticker-picker
+    [tickerList]="tickerList"
+    [selectedTicker]="selectedTicker"
+    (tickerPickerOutput)="onTickerChange($event)"
+  />
+  <app-date-picker (datePickerOutput)="onDateChange($event)" />
+</div>
+<app-graph [graphData]="graphData" />
+<app-table [tableData]="tableData" />
+<!-- <div class="column">
   <div class="column wrap gap-1 space-between">
     <div class="row wrap gap-1">
       <app-ticker-picker
@@ -11,4 +21,4 @@
     <app-graph [graphData]="graphData" />
     <app-table [tableData]="tableData" />
   </div>
-</div>
+</div> -->

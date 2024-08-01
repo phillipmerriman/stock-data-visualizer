@@ -1,6 +1,28 @@
 .graph-container {
   display: flex;
-  justify-content: center;
-  width: 1000px;
-  height: 600px;
+  justify-content: space-between;
+  align-items: center;
+  width: 62%;
+  height: 500px;
+  /* overflow-y: auto; */
+  margin: 1rem;
+}
+
+/* .sub-container {
+  display: flex;
+  flex-direction: row;
+} */
+
+p-chart {
+  /* flex: 1; */
+  width: 80%;
+  height: 400px;
+}
+
+.next-to-graph {
+  width: 250px;
+  margin-left: 20px;
+  hr {
+    width: 100%;
+  }
 }
