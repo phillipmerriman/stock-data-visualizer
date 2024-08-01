@@ -34,6 +34,7 @@ export class HomeComponent {
   graphData: GraphData = {
     ticker: '',
     labels: [],
+    dateRange: '',
     highestPrice: 0,
     lowestPrice: 0,
     datasets: [],
@@ -69,7 +70,10 @@ export class HomeComponent {
     to: '2024-07-23',
   };
 
+  dateRange: string = '2024-06-24 to 2024-07-23';
+
   onDateChange(event: string[]) {
+    this.dateRange = `${event[0]} to ${event[1]}`;
     if (event[0] && event[1]) {
       this.stockApiParams = {
         ...this.stockApiParams,
@@ -87,9 +91,25 @@ export class HomeComponent {
           this.graphData = {
             ticker: `${stock.ticker} has no data for the selected date range.`,
             labels: [],
+            dateRange: this.dateRange,
             highestPrice: 0,
             lowestPrice: 0,
-            datasets: [],
+            datasets: [
+              {
+                label: 'Closing Prices',
+                data: [0],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+              },
+              {
+                label: 'Opening Prices',
+                data: [0],
+                borderColor: 'rgba(70, 292, 192, 1)',
+                backgroundColor: 'rgba(70, 292, 192, 0.2)',
+                fill: true,
+              },
+            ],
           };
           this.tableData = [];
           return;
@@ -110,6 +130,7 @@ export class HomeComponent {
         this.graphData = {
           ticker: stock.ticker,
           labels: labels,
+          dateRange: this.dateRange,
           highestPrice: Math.max(...allPrices),
           lowestPrice: Math.min(...allPrices),
           datasets: [
@@ -155,7 +176,7 @@ export class HomeComponent {
       next: (tickers: GetTickersResponse) => {
         this.tickerList = tickers.results.map((ticker) => {
           return {
-            name: `${ticker.name} | ${ticker.ticker}`,
+            name: `${ticker.ticker} | ${ticker.name}`,
             code: ticker.ticker,
           };
         });

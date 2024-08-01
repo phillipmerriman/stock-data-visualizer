@@ -7,14 +7,33 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="v">Volume<p-sortIcon field="v" /></th>
-        <th pSortableColumn="vw">VWAP<p-sortIcon field="vw" /></th>
-        <th pSortableColumn="o">Open<p-sortIcon field="o" /></th>
-        <th pSortableColumn="c">Close<p-sortIcon field="c" /></th>
-        <th pSortableColumn="h">High<p-sortIcon field="h" /></th>
-        <th pSortableColumn="l">Low<p-sortIcon field="l" /></th>
-        <th pSortableColumn="t">Timestamp<p-sortIcon field="t" /></th>
-        <th pSortableColumn="n">Number of Trades<p-sortIcon field="n" /></th>
+        <th pSortableColumn="v" aria-label="volume column">
+          Volume<p-sortIcon field="v" />
+        </th>
+        <th
+          pSortableColumn="vw"
+          aria-label="volume weighted avreage price column"
+        >
+          VWAP<p-sortIcon field="vw" />
+        </th>
+        <th pSortableColumn="o" aria-label="open price column">
+          Open<p-sortIcon field="o" />
+        </th>
+        <th pSortableColumn="c" aria-label="close price column">
+          Close<p-sortIcon field="c" />
+        </th>
+        <th pSortableColumn="h" aria-label="highest price in range column">
+          High<p-sortIcon field="h" />
+        </th>
+        <th pSortableColumn="l" aria-label="lowest price in range column">
+          Low<p-sortIcon field="l" />
+        </th>
+        <th pSortableColumn="t" aria-label="timestamp column">
+          Timestamp<p-sortIcon field="t" />
+        </th>
+        <th pSortableColumn="n" aria-label="number of transactions column">
+          Number of Trades<p-sortIcon field="n" />
+        </th>
       </tr>
       <tr>
         <th>

@@ -1,8 +1,11 @@
-<h3>Pick yer ticker:</h3>
+<h3 id="tickerPicker">Pick yer ticker:</h3>
 <p-dropdown
   [options]="tickerList"
   [(ngModel)]="selectedTicker"
   (onChange)="onTickerSelect($event)"
   optionLabel="name"
   placeholder="Select..."
+  [style]="{ width: '200px' }"
+  [panelStyle]="{ 'max-width': '400px' }"
+  ariaLabelledBy="tickerPicker"
 />
