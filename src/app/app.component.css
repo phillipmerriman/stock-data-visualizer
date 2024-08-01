@@ -2,8 +2,6 @@
   height: auto;
   padding: 2rem;
   width: 100%;
-  /* flex-grow: 1; */
-  /* box-sizing: border-box; */
   color: var(--text-color);
   background-color: var(--primary-50);
 }
