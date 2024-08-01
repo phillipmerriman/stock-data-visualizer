@@ -34,6 +34,7 @@ export class HomeComponent {
   graphData: GraphData = {
     ticker: '',
     labels: [],
+    dateRange: '',
     highestPrice: 0,
     lowestPrice: 0,
     datasets: [],
@@ -69,7 +70,10 @@ export class HomeComponent {
     to: '2024-07-23',
   };
 
+  dateRange: string = '2024-06-24 to 2024-07-23';
+
   onDateChange(event: string[]) {
+    this.dateRange = `${event[0]} to ${event[1]}`;
     if (event[0] && event[1]) {
       this.stockApiParams = {
         ...this.stockApiParams,
@@ -87,6 +91,7 @@ export class HomeComponent {
           this.graphData = {
             ticker: `${stock.ticker} has no data for the selected date range.`,
             labels: [],
+            dateRange: this.dateRange,
             highestPrice: 0,
             lowestPrice: 0,
             datasets: [
@@ -125,6 +130,7 @@ export class HomeComponent {
         this.graphData = {
           ticker: stock.ticker,
           labels: labels,
+          dateRange: this.dateRange,
           highestPrice: Math.max(...allPrices),
           lowestPrice: Math.min(...allPrices),
           datasets: [

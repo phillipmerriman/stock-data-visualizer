@@ -50,6 +50,7 @@ interface GraphDataSet {
 export interface GraphData {
   ticker: string;
   labels: string[];
+  dateRange: string;
   highestPrice: number;
   lowestPrice: number;
   datasets: Array<GraphDataSet>;

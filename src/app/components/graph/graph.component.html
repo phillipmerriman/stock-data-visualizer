@@ -10,12 +10,13 @@
       Selected Ticker: {{ graphData.ticker }}
     </h3>
     <hr />
-    <h4 aria-label="highest price in range">
-      Highest price in range: {{ graphData.highestPrice }}
-    </h4>
+    <h4 aria-label="date range">Date range:</h4>
+    <p>{{ graphData.dateRange }}</p>
     <hr />
-    <h4 aria-label="lowest price in range">
-      Lowest price in range: {{ graphData.lowestPrice }}
-    </h4>
+    <h4 aria-label="highest price in range">Highest price in range:</h4>
+    <p>${{ graphData.highestPrice }}</p>
+    <hr />
+    <h4 aria-label="lowest price in range">Lowest price in range:</h4>
+    <p>${{ graphData.lowestPrice }}</p>
   </section>
 </div>
