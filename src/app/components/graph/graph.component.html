@@ -3,13 +3,19 @@
     type="line"
     [data]="graphData"
     [options]="graphOptions"
-    aria="Graph of stock market data"
+    ariaLabel="Graph of stock market data"
   />
-  <div class="column next-to-graph">
-    <h3>Selected Ticker: {{ graphData.ticker }}</h3>
+  <section class="column next-to-graph" aria-label="additional info">
+    <h3 aria-label="selected ticker">
+      Selected Ticker: {{ graphData.ticker }}
+    </h3>
     <hr />
-    <h4>Highest price in range: {{ graphData.highestPrice }}</h4>
+    <h4 aria-label="highest price in range">
+      Highest price in range: {{ graphData.highestPrice }}
+    </h4>
     <hr />
-    <h4>Lowest price in range: {{ graphData.lowestPrice }}</h4>
-  </div>
+    <h4 aria-label="lowest price in range">
+      Lowest price in range: {{ graphData.lowestPrice }}
+    </h4>
+  </section>
 </div>

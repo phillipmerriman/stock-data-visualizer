@@ -1,4 +1,4 @@
-<h3>Pick a date range:</h3>
+<h3 id="datePicker">Pick a date range:</h3>
 <p-calendar
   [(ngModel)]="dateRange"
   selectionMode="range"
@@ -6,4 +6,5 @@
   (onSelect)="onDateSelect()"
   placeholder="Select a date range..."
   [maxDate]="maxDate"
+  ariaLabelledBy="datePicker"
 />

@@ -89,7 +89,22 @@ export class HomeComponent {
             labels: [],
             highestPrice: 0,
             lowestPrice: 0,
-            datasets: [],
+            datasets: [
+              {
+                label: 'Closing Prices',
+                data: [0],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+              },
+              {
+                label: 'Opening Prices',
+                data: [0],
+                borderColor: 'rgba(70, 292, 192, 1)',
+                backgroundColor: 'rgba(70, 292, 192, 0.2)',
+                fill: true,
+              },
+            ],
           };
           this.tableData = [];
           return;
