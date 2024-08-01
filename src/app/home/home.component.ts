@@ -155,7 +155,7 @@ export class HomeComponent {
       next: (tickers: GetTickersResponse) => {
         this.tickerList = tickers.results.map((ticker) => {
           return {
-            name: `${ticker.name} | ${ticker.ticker}`,
+            name: `${ticker.ticker} | ${ticker.name}`,
             code: ticker.ticker,
           };
         });
