@@ -4,9 +4,9 @@ import { Observable } from 'rxjs';
 import { GetTickersResponse, Stock, StockParams } from '../../types';
 import { environment } from '../../environments/environment';
 
-// TODO: what is @Injectable
+// Injectable is a decorator that marks a class as available to be provided and injected as a dependency
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root', // This makes the service available application-wide
 })
 export class StockDataService {
   private apiKey: string = environment.apiKey;
@@ -20,13 +20,12 @@ export class StockDataService {
     });
   };
 
-  //TODO: what is Observable
   // Observables are lazy push collections of multiple values: https://rxjs.dev/guide/observable
-  getStockData = (params: StockParams): Observable<Stock> => {
-    const url: string = `https://api.polygon.io/v2/aggs/ticker/${params.ticker}/range/${params.multiplier}/${params.timespan}/${params.from}/${params.to}?apiKey=${this.apiKey}`;
+  getStockData = (stockParams: StockParams): Observable<Stock> => {
+    const url: string = `https://api.polygon.io/v2/aggs/ticker/${stockParams.ticker}/range/${stockParams.multiplier}/${stockParams.timespan}/${stockParams.from}/${stockParams.to}?apiKey=${this.apiKey}`;
 
     return this.apiService.get(url, {
-      params,
+      stockParams,
       responseType: 'json',
     });
   };

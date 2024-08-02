@@ -7,9 +7,8 @@ export interface Options {
         [header: string]: string | string[];
       };
   observe?: 'body';
-  //   observe: 'events';
   context?: HttpContext;
-  params?:
+  stockParams?:
     | HttpParams
     | {
         [param: string]:
@@ -57,8 +56,11 @@ export interface GraphData {
 }
 
 export interface GraphOptions {
-  responsive: boolean;
+  maintainAspectRatio?: boolean;
+  aspectRatio?: number;
+  responsive?: boolean;
   scales: object;
+  plugins?: object;
 }
 
 export interface TableData {
