@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './ticker-picker.component.css',
 })
 export class TickerPickerComponent {
-  // exclamation here means the input will always be provided
   @Input() tickerList!: TickerListItem[];
   @Input() selectedTicker!: TickerListItem;
   @Output() tickerPickerOutput: EventEmitter<TickerListItem> =

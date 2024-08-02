@@ -48,6 +48,7 @@ interface GraphDataSet {
 
 export interface GraphData {
   ticker: string;
+  name: string;
   labels: string[];
   dateRange: string;
   highestPrice: number;
