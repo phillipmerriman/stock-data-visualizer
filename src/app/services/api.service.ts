@@ -10,7 +10,6 @@ export class ApiService {
   constructor(private httpClient: HttpClient) {}
 
   get<T>(url: string, options: Options): Observable<T> {
-    //TODO: remove 'as Observable<T>' and explore the ts error
     return this.httpClient.get<T>(url, options) as Observable<T>;
   }
 }
