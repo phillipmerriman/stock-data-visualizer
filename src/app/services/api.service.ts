@@ -9,6 +9,8 @@ import { Options } from '../../types';
 export class ApiService {
   constructor(private httpClient: HttpClient) {}
 
+  // <T> is a generic type. Generics provide the flexibility while maintaining typ safety.
+  // You can define a generic function, class, or interface that works with any type, and TS ensures that the type is consistent.
   get<T>(url: string, options: Options): Observable<T> {
     return this.httpClient.get<T>(url, options) as Observable<T>;
   }
