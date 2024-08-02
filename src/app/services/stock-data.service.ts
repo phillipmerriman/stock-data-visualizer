@@ -19,6 +19,13 @@ export class StockDataService {
     });
   };
 
+  getMoreTickers = (url: string): Observable<GetTickersResponse> => {
+    const moreTickersUrl: string = `${url}&apiKey=${this.apiKey}`;
+    return this.apiService.get(moreTickersUrl, {
+      responseType: 'json',
+    });
+  };
+
   getStockData = (stockParams: StockParams): Observable<Stock> => {
     const url: string = `https://api.polygon.io/v2/aggs/ticker/${stockParams.ticker}/range/${stockParams.multiplier}/${stockParams.timespan}/${stockParams.from}/${stockParams.to}?apiKey=${this.apiKey}`;
 

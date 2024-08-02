@@ -33,6 +33,7 @@ export class HomeComponent {
 
   graphData: GraphData = {
     ticker: '',
+    name: '',
     labels: [],
     dateRange: '',
     highestPrice: 0,
@@ -50,7 +51,7 @@ export class HomeComponent {
   tickerList: TickerListItem[] = [];
 
   selectedTicker: TickerListItem = {
-    name: 'Apple Inc.',
+    name: 'AAPL | Apple Inc.',
     code: 'AAPL',
   };
 
@@ -58,6 +59,10 @@ export class HomeComponent {
     this.stockApiParams = {
       ...this.stockApiParams,
       ticker: event.code,
+    };
+    this.selectedTicker = {
+      name: event.name,
+      code: event.code,
     };
     this.handleGetStockData();
   }
@@ -90,6 +95,7 @@ export class HomeComponent {
         if (!stock.results) {
           this.graphData = {
             ticker: `${stock.ticker} has no data for the selected date range.`,
+            name: '',
             labels: [],
             dateRange: this.dateRange,
             highestPrice: 0,
@@ -129,6 +135,7 @@ export class HomeComponent {
         });
         this.graphData = {
           ticker: stock.ticker,
+          name: this.selectedTicker.name,
           labels: labels,
           dateRange: this.dateRange,
           highestPrice: Math.max(...allPrices),
@@ -181,7 +188,7 @@ export class HomeComponent {
           };
         });
       },
-      error: (error) => console.log(error),
+      error: (error) => console.error(error),
     });
     this.handleGetStockData();
   }
